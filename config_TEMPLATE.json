@@ -1,0 +1,13 @@
+{
+"debuglevel": "ALL",
+"http": {
+	"port": 8086
+},
+"mysql": {
+	"dbhost" : "localhost", 
+        "dbuser" : "user",
+        "dbpassword" : "password",
+        "dbname" : "cdr",
+        "dbport" : 3306
+}
+}

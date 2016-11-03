@@ -1,11 +1,16 @@
-## ACE Direct Version
-# This is the README file for the Call Detail Records (CDR) modular component.
+# This is the README file for the Call Data Records (CDR) modular component.
 
-Create the database credentials and update the information below. After checkout from Git, modify the app.js connection as shown below:
+## To get started:
+1. Clone this repository
+1. Download and install [node.js](https://nodejs.org/en/)
+1. In the repository, run `npm install`
+1. To start the node server manually, run `node app.js`
 
-var connection = mysql.createConnection({
-  host     : 'insert mysql hostname',
-  user     : 'insert mysql username',
-  password : 'insert mysql password',
-  database : 'insert mysql database name'
-});
+## Configuration:
+1. Copy config.json_TEMPLATE to config.json
+1. Modify these parameters:
+	1. _port_ - The port where this node server runs
+	1. _mysql_ - Parameters for the associated MySQL server
+	
+## Running:
+The ACR-CDR server is a RESTful web service API
