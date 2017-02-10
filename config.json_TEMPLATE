@@ -1,0 +1,16 @@
+{
+    "debuglevel": "ALL",
+    "https": {
+		"port": 8086,
+		"certificate": "ssl/cert.pem",
+		"private_key": "ssl/key.pem"
+	},
+    "mysql": {
+        "dbhost" : "qasip.task3acrdemo.com",
+        "dbuser" : "cdruser",
+        "dbpassword" : "$#12ppQz",
+        "dbname" : "asterisk",
+        "dbport" : 3306,
+        "cdrtable":"tablename"
+    }
+}

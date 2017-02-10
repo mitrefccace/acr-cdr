@@ -1,0 +1,16 @@
+{
+    "debuglevel": "ALL",
+    "https": {
+		"port": 8086,
+		"certificate": "ssl/cert.pem",
+		"private_key": "ssl/key.pem"
+	},
+    "mysql": {
+        "dbhost" : "localhost",
+        "dbuser" : "<dbuser>",
+        "dbpassword" : "<dbpassword>",
+        "dbname" : "<dbname>",
+        "dbport" : 0,
+		"cdrtable": "tablename"
+    }
+}
