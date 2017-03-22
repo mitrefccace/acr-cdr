@@ -1,0 +1,20 @@
+{
+    "debuglevel": "ALL",
+    "https": {
+		"port": 0,
+		"certificate": "<insert cert path>",
+		"private_key": "<insert key path>"
+	},
+    "mysql": {
+        "dbhost" : "<dbhost>",
+        "dbuser" : "<dbuser>",
+        "dbpassword" : "<dbpassword>",
+        "dbname" : "<dbname>",
+        "dbport" : 0,
+		"cdrtable": "<dbtablename>"
+    },
+	"redis": {
+        "host": "<host>",
+        "port": 0
+	}    
+}
