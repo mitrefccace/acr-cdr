@@ -1,4 +1,4 @@
-<p align="left">
+﻿<p align="left">
     <img src="resources/ace.png"  width="150" alt="ACE Logo"/>
 </p>
 
@@ -11,6 +11,7 @@
 1. Additional information can be found in the ACE Direct Platform Release document
 
 ## To get started
+To install acr-cdr, follow the README.md file in the autoinstall folder. The instructions for manual install are also provided below for reference.
 1. Clone this repository
 1. Download and install [node.js](https://nodejs.org/en/)
 1. In the repository, run `npm install`
