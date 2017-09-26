@@ -1,4 +1,5 @@
 {
+    "clearText": "remove this field if this file is encoded",
     "debuglevel": "ALL",
     "https": {
 		"port": 0,

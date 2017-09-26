@@ -1,7 +1,4 @@
-﻿<p align="left">
-    <img src="resources/ace.png"  width="150" alt="ACE Logo"/>
-</p>
-
+﻿![](resources/ace.png)
 
 # Call Data Records (CDR) RESTful API.
 
@@ -20,36 +17,34 @@ To install acr-cdr, follow the README.md file in the autoinstall folder. The ins
 
 ![Starting ACR-CDR Image](resources/node_app.png "Starting ACR-CDR")
 
-
-
 ## Configuration
 1. Copy config.json_TEMPLATE to config.json
 1. Insert values for the parameters below
-1. Values must be Encoded using base64 strings (example "port":8080 becomes "port":"ODA4MA==")
+1. Values must be Encoded using base64 strings (example "port":8080 becomes "port":"ODA4MA=="), unless this is in development mode (see the clearText flag below).
 
 | Key         | Description |
 |-------------|-------------|
-| port        | The port for the CDR server to listen on |
-| certificate | The path to the SSL certificate |
-| private_key | The path to the SSL private key |
-| dbhost      | The hostname for the MySQL database |
-| dbuser      | The username for the MySQL database |
-| dbpassword  | The password for the MySQL database |
-| dbname      | The name of the MySQL database |
-| dbport      | The port of the MySQL database |
-| cdrtable    | The name of the table for the CDR records |
+| clearText   | If present, indicates that the config.json file is unencoded. |
+| debuglevel  | Logging level; TRACE, DEBUG, INFO, WARN, ERROR, or FATAL |
+| https:port  | The port for the CDR server to listen on |
+| https:certificate | The path to the SSL certificate |
+| https:private_key | The path to the SSL private key |
+| mysql:dbhost      | The hostname for the MySQL database |
+| mysql:dbuser      | The username for the MySQL database |
+| mysql:dbpassword  | The password for the MySQL database |
+| mysql:dbname      | The name of the MySQL database |
+| mysql:dbport      | The port of the MySQL database |
+| mysql:cdrtable    | The name of the table for the CDR records |
 
 
 
 ## Generating APIdocs
 
-<a href="resources/apidoc.png" target="_blank">APIDoc screenshot</a>
+![](resources/apidoc.png)
 
 1. Run `npm install apidoc -g` to install apidoc
 1. From the project folder run `apidoc -i routes/ -o apidoc/`
 1. The APIDocs can be accessed from `<hostname>:<port>/apidoc/`
-
-
 
 ## REST Calls
 ### /GetAllCDRRecs
@@ -58,9 +53,6 @@ Returns a JSON Object containing all records from the Asterisk CDR database.
 *   **start** - (*optional*) Start date for cdr records (format YYYY-MM-DD)
 *   **end** - (*optional*) End date for cdr records (format YYYY-MM-DD)
 *   **format** - (*optional*) Format results are returned in. Defaults to JSON, accepts csv.
-
-
-
 
 ## License
 This software was produced for the U.S. Government under
