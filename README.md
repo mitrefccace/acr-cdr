@@ -1,6 +1,6 @@
 ﻿![](resources/ace.png)
 
-# Call Data Records (CDR) RESTful API.
+# Call Detail Records (CDR) RESTful API.
 
 ### SSL Configuration
 1. ACE software uses SSL which requires a valid key and certificate
