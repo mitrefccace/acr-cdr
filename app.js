@@ -28,7 +28,7 @@ log4js.configure({
 var logger = log4js.getLogger(logname);
 
 // Read this config file from the local directory
-cfile = 'config.json';
+cfile = '../dat/config.json';
 
 
 
@@ -54,13 +54,13 @@ nconf.file({file: cfile});
 //the presence of the clearText field in config.json means that the file is in clear text
 //remove the field if the file is encoded
 var clearText = false;
-if (typeof(nconf.get('clearText')) !== "undefined") {
+if (typeof(nconf.get('common:cleartext')) !== "undefined") {
     console.log('clearText field is in config.json. assuming file is in clear text');
     clearText = true;
 }
 
 // Set log4js level from the config file
-logger.setLevel(decodeBase64(nconf.get('debuglevel')));
+logger.setLevel(decodeBase64(nconf.get('common:debug_level')));
 logger.trace('TRACE messages enabled.');
 logger.debug('DEBUG messages enabled.');
 logger.info('INFO messages enabled.');
@@ -70,13 +70,13 @@ logger.fatal('FATAL messages enabled.');
 logger.info('Using config file: ' + cfile);
 
 
-var listenPort	= parseInt(decodeBase64(nconf.get('https:port')));
-var dbHost		= decodeBase64(nconf.get('mysql:dbhost'));
-var dbUser		= decodeBase64(nconf.get('mysql:dbuser'));
-var dbPassword	= decodeBase64(nconf.get('mysql:dbpassword'));
-var dbName		= decodeBase64(nconf.get('mysql:dbname'));
-var dbPort		= parseInt(decodeBase64(nconf.get('mysql:dbport')));
-var cdrTable	= decodeBase64(nconf.get('mysql:cdrtable'));
+var listenPort	= parseInt(decodeBase64(nconf.get('acr_cdr:https_listen_port')));
+var dbHost		= decodeBase64(nconf.get('acr_cdr:mysql:host'));
+var dbUser		= decodeBase64(nconf.get('acr_cdr:mysql:user'));
+var dbPassword	= decodeBase64(nconf.get('acr_cdr:mysql:password'));
+var dbName		= decodeBase64(nconf.get('acr_cdr:mysql:cdr_database_name'));
+var dbPort		= parseInt(decodeBase64(nconf.get('acr_cdr:mysql:port')));
+var cdrTable	= decodeBase64(nconf.get('acr_cdr:mysql:cdr_table_name'));
 
 clear(); // clear console
 
@@ -97,8 +97,8 @@ setInterval(function () {
 }, 60000);
 
 var credentials = {
-	key		: fs.readFileSync(decodeBase64(nconf.get('https:private_key'))),
-	cert	: fs.readFileSync(decodeBase64(nconf.get('https:certificate')))
+	key		: fs.readFileSync(decodeBase64(nconf.get('common:https:private_key'))),
+	cert	: fs.readFileSync(decodeBase64(nconf.get('common:https:certificate')))
 };
 
 // Start the server
@@ -108,8 +108,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var routes = require('./routes/routes.js')(app, connection, logger, cdrTable);
 var httpsServer = https.createServer(credentials, app);
-httpsServer.listen(parseInt(decodeBase64(nconf.get('https:port'))));
-console.log('CDR listening on port=%s ...   (Ctrl+C to Quit)', parseInt(decodeBase64(nconf.get('https:port'))));
+httpsServer.listen(parseInt(decodeBase64(nconf.get('acr_cdr:https_listen_port'))));
+console.log('CDR listening on port=%s ...   (Ctrl+C to Quit)', parseInt(decodeBase64(nconf.get('acr_cdr:https_listen_port'))));
 
 
 
