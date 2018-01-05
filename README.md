@@ -17,27 +17,6 @@ To install acr-cdr, follow the README.md file in the autoinstall folder. The ins
 
 ![Starting ACR-CDR Image](resources/node_app.png "Starting ACR-CDR")
 
-## Configuration
-1. Copy config.json_TEMPLATE to config.json
-1. Insert values for the parameters below
-1. Values must be Encoded using base64 strings (example "port":8080 becomes "port":"ODA4MA=="), unless this is in development mode (see the clearText flag below).
-
-| Key         | Description |
-|-------------|-------------|
-| clearText   | If present, indicates that the config.json file is unencoded. |
-| debuglevel  | Logging level; TRACE, DEBUG, INFO, WARN, ERROR, or FATAL |
-| https:port  | The port for the CDR server to listen on |
-| https:certificate | The path to the SSL certificate |
-| https:private_key | The path to the SSL private key |
-| mysql:dbhost      | The hostname for the MySQL database |
-| mysql:dbuser      | The username for the MySQL database |
-| mysql:dbpassword  | The password for the MySQL database |
-| mysql:dbname      | The name of the MySQL database |
-| mysql:dbport      | The port of the MySQL database |
-| mysql:cdrtable    | The name of the table for the CDR records |
-
-
-
 ## Generating APIdocs
 
 ![](resources/apidoc.png)
