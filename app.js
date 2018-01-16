@@ -71,12 +71,12 @@ logger.info('Using config file: ' + cfile);
 
 
 var listenPort	= parseInt(decodeBase64(nconf.get('acr_cdr:https_listen_port')));
-var dbHost		= decodeBase64(nconf.get('acr_cdr:mysql:host'));
-var dbUser		= decodeBase64(nconf.get('acr_cdr:mysql:user'));
-var dbPassword	= decodeBase64(nconf.get('acr_cdr:mysql:password'));
-var dbName		= decodeBase64(nconf.get('acr_cdr:mysql:cdr_database_name'));
-var dbPort		= parseInt(decodeBase64(nconf.get('acr_cdr:mysql:port')));
-var cdrTable	= decodeBase64(nconf.get('acr_cdr:mysql:cdr_table_name'));
+var dbHost		= decodeBase64(nconf.get('database_servers:mysql:host'));
+var dbUser		= decodeBase64(nconf.get('database_servers:mysql:user'));
+var dbPassword	= decodeBase64(nconf.get('database_servers:mysql:password'));
+var dbName		= decodeBase64(nconf.get('database_servers:mysql:cdr_database_name'));
+var dbPort		= parseInt(decodeBase64(nconf.get('database_servers:mysql:port')));
+var cdrTable	= decodeBase64(nconf.get('database_servers:mysql:cdr_table_name'));
 
 clear(); // clear console
 
