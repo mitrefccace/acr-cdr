@@ -51,10 +51,10 @@ try {
 // Read the params from the config file
 nconf.file({file: cfile});
 
-//the presence of the clearText field in config.json means that the file is in clear text
-//remove the field if the file is encoded
+//the presence of a populated cleartext field in config.json means that the file is in clear text
+//remove the field or set it to "" if the file is encoded
 var clearText = false;
-if (typeof(nconf.get('common:cleartext')) !== "undefined") {
+if (typeof(nconf.get('common:cleartext')) !== "undefined"  && nconf.get('common:cleartext') !== ""   ) {
     console.log('clearText field is in config.json. assuming file is in clear text');
     clearText = true;
 }
