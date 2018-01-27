@@ -40,9 +40,12 @@ try {
 	var myjson = JSON.parse(content);
 	console.log("Valid JSON config file");
 } catch (ex) {
-	console.log("Error in " + cfile);
-	console.log('Exiting...');
-	console.log(ex);
+    console.log("");
+    console.log("*******************************************************");
+    console.log("Error! Malformed configuration file: " + cfile);
+    console.log('Exiting...');
+    console.log("*******************************************************");
+    console.log("");
 	process.exit(1);
 }
 
@@ -60,7 +63,7 @@ if (typeof(nconf.get('common:cleartext')) !== "undefined"  && nconf.get('common:
 }
 
 // Set log4js level from the config file
-logger.setLevel(decodeBase64(nconf.get('common:debug_level')));
+logger.setLevel(getConfigVal('common:debug_level'));
 logger.trace('TRACE messages enabled.');
 logger.debug('DEBUG messages enabled.');
 logger.info('INFO messages enabled.');
@@ -70,13 +73,13 @@ logger.fatal('FATAL messages enabled.');
 logger.info('Using config file: ' + cfile);
 
 
-var listenPort	= parseInt(decodeBase64(nconf.get('acr_cdr:https_listen_port')));
-var dbHost		= decodeBase64(nconf.get('database_servers:mysql:host'));
-var dbUser		= decodeBase64(nconf.get('database_servers:mysql:user'));
-var dbPassword	= decodeBase64(nconf.get('database_servers:mysql:password'));
-var dbName		= decodeBase64(nconf.get('database_servers:mysql:cdr_database_name'));
-var dbPort		= parseInt(decodeBase64(nconf.get('database_servers:mysql:port')));
-var cdrTable	= decodeBase64(nconf.get('database_servers:mysql:cdr_table_name'));
+var listenPort	= parseInt(getConfigVal('acr_cdr:https_listen_port'));
+var dbHost		= getConfigVal('database_servers:mysql:host');
+var dbUser		= getConfigVal('database_servers:mysql:user');
+var dbPassword	= getConfigVal('database_servers:mysql:password');
+var dbName		= getConfigVal('database_servers:mysql:cdr_database_name');
+var dbPort		= parseInt(getConfigVal('database_servers:mysql:port'));
+var cdrTable	= getConfigVal('database_servers:mysql:cdr_table_name');
 
 clear(); // clear console
 
@@ -97,8 +100,8 @@ setInterval(function () {
 }, 60000);
 
 var credentials = {
-	key		: fs.readFileSync(decodeBase64(nconf.get('common:https:private_key'))),
-	cert	: fs.readFileSync(decodeBase64(nconf.get('common:https:certificate')))
+	key		: fs.readFileSync(getConfigVal('common:https:private_key')),
+	cert	: fs.readFileSync(getConfigVal('common:https:certificate'))
 };
 
 // Start the server
@@ -108,8 +111,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var routes = require('./routes/routes.js')(app, connection, logger, cdrTable);
 var httpsServer = https.createServer(credentials, app);
-httpsServer.listen(parseInt(decodeBase64(nconf.get('acr_cdr:https_listen_port'))));
-console.log('CDR listening on port=%s ...   (Ctrl+C to Quit)', parseInt(decodeBase64(nconf.get('acr_cdr:https_listen_port'))));
+httpsServer.listen(parseInt(getConfigVal('acr_cdr:https_listen_port')));
+console.log('CDR listening on port=%s ...   (Ctrl+C to Quit)', parseInt(getConfigVal('acr_cdr:https_listen_port')));
 
 
 
@@ -121,16 +124,29 @@ process.on('SIGINT', function () {
 });
 
 /**
- * Function to decode the Base64 configuration file parameters.
- * @param {type} encodedString Base64 encoded string.
+ * Function to verify the config parameter name and
+ * decode it from Base64 (if necessary).
+ * @param {type} param_name of the config parameter
  * @returns {unresolved} Decoded readable string.
  */
-function decodeBase64(encodedString) {
+function getConfigVal(param_name) {
+  var val = nconf.get(param_name);
+  if (typeof val !== 'undefined' && val !== null) {
+    //found value for param_name
     var decodedString = null;
     if (clearText) {
-        decodedString = encodedString;
+      decodedString = val;
     } else {
-        decodedString = new Buffer(encodedString, 'base64');
+      decodedString = new Buffer(val, 'base64');
     }
-    return (decodedString.toString());
+  } else {
+    //did not find value for param_name
+    logger.error('');
+    logger.error('*******************************************************');
+    logger.error('ERROR!!! Config parameter is missing: ' + param_name);
+    logger.error('*******************************************************');
+    logger.error('');
+    decodedString = "";
+  }
+  return (decodedString.toString());
 }
