@@ -11,21 +11,25 @@ var https = require('https');
 var cfile = null;
 
 // Initialize log4js
-log4js.loadAppender('file');
 var logname = 'acr-cdr';
 log4js.configure({
-	appenders: [
-		{
-			type				: 'dateFile',
-			filename			: 'logs/' + logname + '.log',
-			alwaysIncludePattern: false,
-			maxLogSize			: 20480,
-			backups				: 10
-		}
-	]
-});
-
-var logger = log4js.getLogger(logname);
+  appenders: {
+    acr_cdr: {
+      type: 'dateFile',
+      filename: 'logs/' + logname + '.log',
+      alwaysIncludePattern: false,
+      maxLogSize: 20480,
+      backups: 10
+    }
+  },
+  categories: {
+    default: {
+      appenders: ['acr_cdr'],
+      level: 'error'
+    }
+  }
+})
+var logger = log4js.getLogger('acr_cdr');
 
 // Read this config file from the local directory
 cfile = '../dat/config.json';
@@ -63,7 +67,7 @@ if (typeof(nconf.get('common:cleartext')) !== "undefined"  && nconf.get('common:
 }
 
 // Set log4js level from the config file
-logger.setLevel(getConfigVal('common:debug_level'));
+logger.level = getConfigVal('common:debug_level');
 logger.trace('TRACE messages enabled.');
 logger.debug('DEBUG messages enabled.');
 logger.info('INFO messages enabled.');
