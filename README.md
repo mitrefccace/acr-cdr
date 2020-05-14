@@ -53,10 +53,10 @@ permission of The MITRE Corporation.
 
 For further information, please contact:
 
-> The MITRE Corporation
-> Contracts Management Office
-> 7515 Colshire Drive
-> McLean, VA 22102-7539
+> The MITRE Corporation\
+> Contracts Management Office\
+> 7515 Colshire Drive\
+> McLean, VA 22102-7539\
 > (703) 983-6000
 
 ©2016 The MITRE Corporation.
