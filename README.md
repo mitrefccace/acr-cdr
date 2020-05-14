@@ -16,8 +16,8 @@ To install `acr-cdr`, follow the `README.md` file in the `autoinstall` folder. T
 
 1. Clone this repository
 1. Download and install [node.js](https://nodejs.org/en/)
-1. In the repository, run `npm install`
-1. Update the config.json file (see Configuration section)
+1. In the repository, run `npm run build`
+1. Update the `dat/config.json` file (see Configuration section)
 1. To start the node server manually, run `node app.js`
 
 ![Starting ACR-CDR Image](resources/node_app.png "Starting ACR-CDR")
