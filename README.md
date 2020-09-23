@@ -63,4 +63,3 @@ For further information, please contact:
 
 ![The MITRE Corporation Logo](resources/mitrelogo-blueonwhite.jpg "The MITRE Corporation")
 
-
