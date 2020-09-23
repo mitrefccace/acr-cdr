@@ -9,6 +9,27 @@ var nconf = require('nconf');
 var log4js = require('log4js');
 var https = require('https');
 var cfile = null;
+var connection = null;
+
+
+//CLEAN UP function; must be at the top!
+//for exits, abnormal ends, signals, uncaught exceptions
+var cleanup = require('./cleanup').Cleanup(myCleanup);
+function myCleanup() {
+  //clean up code on exit, exception, SIGINT, etc.
+  console.log('');
+  console.log('***Exiting***');
+
+  //DB cleanup
+  if (connection) {
+    console.log('Cleaning up DB connection...');
+    connection.destroy();
+  }
+
+  console.log('byeee.');
+  console.log('');
+};
+
 
 // Initialize log4js
 var logname = 'acr-cdr';
@@ -88,7 +109,7 @@ var cdrTable	= getConfigVal('database_servers:mysql:cdr_table_name');
 clear(); // clear console
 
 // Create MySQL connection and connect to the database
-var connection = mysql.createConnection({
+connection = mysql.createConnection({
 	host	: dbHost,
 	user	: dbUser,
 	password: dbPassword,
@@ -117,23 +138,6 @@ var routes = require('./routes/routes.js')(app, connection, logger, cdrTable);
 var httpsServer = https.createServer(credentials, app);
 httpsServer.listen(parseInt(getConfigVal('acr_cdr:https_listen_port')));
 console.log('CDR listening on port=%s ...   (Ctrl+C to Quit)', parseInt(getConfigVal('acr_cdr:https_listen_port')));
-
-
-
-// Handle Ctrl-C (graceful shutdown)
-process.on('SIGINT', function () {
-	console.log('Exiting...');
-	connection.end();
-	process.exit(0);
-});
-
-//graceful shutdown, especially with node restarts
-process.on('exit', function() {
-  console.log('exit caught');
-  console.log('DESTROYING DB CONNECTION');
-  connection.destroy(); //destroy db connection
-  process.exit(0);
-});
 
 /**
  * Function to verify the config parameter name and
